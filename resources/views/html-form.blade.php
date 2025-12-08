@@ -1,26 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('template.default')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
-    <title>Workshop HTML</title>
-    <style>
-        * {
-            font-family: "Montserrat", sans-serif;
-            font-optical-sizing: auto;
-            font-weight: <weight>;
-            font-style: normal;
-        }
-    </style>
-</head>
-
-<body>
+@section('content')
     <div class="container pt-5">
         <h1 style="color: #916420ff;">Workshop #HTML - FORM</h1>
 
@@ -114,10 +94,14 @@
             </div>
             <div class="col-md-12 d-flex justify-content-between mt-4">
                 <button type="reset" class="btn btn-secondary">Reset</button>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="button" class="btn btn-primary">Submit</button>
             </div>
         </form>
     </div>
-</body>
+@endsection
 
-</html>
+@push('scripts')
+    <script>
+        console.log('HTML Form Loaded');
+    </script>
+@endpush
