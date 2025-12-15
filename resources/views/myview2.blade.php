@@ -1,6 +1,40 @@
 @extends('template.default')
 
+@section('title', 'MyView2')
+@section('header1', 'MYVIEW 2')
+
 @section('content')
+    <!-- วิธีการใช้ php ใน blade template -->
+    <?php
+        $myphp = "php";
+        echo"<h1>This is My View 2</h1>";
+        
+        $myarray = [1,2,3,4];
+        echo $myarray[2];
+        echo "<br>";
+        var_dump($myarray);
+        echo "<br>";
+        print_r($myarray);
+        echo "<br>";
+        $myarray2["a"] = 1;
+        $myarray2[] = 2;
+        $myarray2[] = 3;
+        $myarray2[] = [1,2, [3,4]]; // multidimensional array
+        print_r($myarray2);
+        echo "<br>";
+        for ($i = 0; $i < count($myarray); $i++) {
+            echo "index $i : value ".$myarray[$i]."<br>";
+        }
+        for ($i = 0; $i < sizeof($myarray); $i++) {
+            echo "index $i : value ".$myarray[$i]."<br>";
+        }
+    ?>
+    <h1><?php echo "Hello PHP2"; ?></h1>
+    <h1><?php printf("Hello PHP3"); ?></h1>
+    <h1>{{ "Hello PHP4" }}</h1>
+    <h1><?= "Hello PHP5"?></h1>
+    <!-- ---------------------------------- -->
+
     <div class="container pt-5">
         <h1 style="color: #204a87ff;">This is My View 2</h1>
         <p>Welcome to My View 2 page!</p>
