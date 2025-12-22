@@ -13,6 +13,9 @@ Route::get('/view2', function () {
 Route::get('/mycontroller', [App\Http\Controllers\MyController::class, 'index']);
 Route::post('/mycontroller', [App\Http\Controllers\MyController::class, 'process']);
 
+Route::get('/', [App\Http\Controllers\HtmlForm_Controller::class, 'index'])->name('form.index');
+Route::post('/form-data', [App\Http\Controllers\HtmlForm_Controller::class, 'store'])->name('form.store');
+
 Route::namespace('App\Http\Controllers')->group(function () {
     Route::get('/flights', 'FlightController@index');
     Route::get('/flight/{id}', 'FlightController@update');

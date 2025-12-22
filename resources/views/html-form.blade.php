@@ -4,25 +4,26 @@
     <div class="container pt-5">
         <h1 style="color: #916420ff;">Workshop #HTML - FORM</h1>
 
-        <form class="row g-3 needs-validation" novalidate>
+        <form action="{{ route('form.store') }}" method="POST" enctype="multipart/form-data" class="row g-3 needs-validation" novalidate>
+            @csrf
             <div class="col-md-6">
                 <label for="fname" class="form-label">First Name</label>
-                <input type="text" class="form-control" id="fname" required>
+                <input type="text" name="fname" class="form-control" id="fname" required>
                 <div class="invalid-feedback">Please provide a first name.</div>
             </div>
             <div class="col-md-6">
                 <label for="lname" class="form-label">Last Name</label>
-                <input type="text" class="form-control" id="lname" required>
+                <input type="text" name="lname" class="form-control" id="lname" required>
                 <div class="invalid-feedback">Please provide a last name.</div>
             </div>
             <div class="col-md-4">
                 <label for="birthday" class="form-label">Birthday</label>
-                <input type="date" class="form-control" id="birthday" required>
+                <input type="date" name="birthday" class="form-control" id="birthday" required>
                 <div class="invalid-feedback">Please provide a birthday.</div>
             </div>
             <div class="col-md-4">
                 <label for="age" class="form-label">Age</label>
-                <input type="number" class="form-control" id="age" min="1" max="120" required>
+                <input type="number" name="age" class="form-control" id="age" min="1" max="120" required>
                 <div class="invalid-feedback">Please provide a valid age.</div>
             </div>
             <div class="col-md-4">
@@ -42,18 +43,18 @@
                 <div class="invalid-feedback" id="gender-feedback" style="display: none;">Please select a gender.</div>
             </div>
             <div class="col-md-12">
-                <label for="formFile" class="form-label">Picture</label>
-                <input class="form-control" type="file" id="formFile" accept="image/*" required>
+                <label for="formFile" class="form-label">Picture (Optional)</label>
+                <input class="form-control" type="file" name="picture" id="formFile" accept="image/*">
                 <div class="invalid-feedback">Please select an image.</div>
             </div>
             <div class="col-md-12">
                 <label for="address" class="form-label">Address</label>
-                <textarea class="form-control" id="address" placeholder="1234 Main St" rows="4" required></textarea>
+                <textarea class="form-control" name="address" id="address" placeholder="1234 Main St" rows="4" required></textarea>
                 <div class="invalid-feedback">Please provide an address.</div>
             </div>
             <div class="col-md-12">
                 <label for="color" class="form-label">Favourite Color</label>
-                <select class="form-select" id="color" aria-label="Color select" required>
+                <select class="form-select" name="color" id="color" aria-label="Color select" required>
                     <option value="">Select a color</option>
                     <option value="Red">🔴 Red</option>
                     <option value="Green">🟢 Green</option>
@@ -88,7 +89,7 @@
                     <label for="jazz" class="form-check-label">Jazz</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" id="hiphop" name="music" value="hiphip">
+                    <input class="form-check-input" type="radio" id="hiphop" name="music" value="hiphop">
                     <label for="hiphop" class="form-check-label">Hip-Hop</label>
                 </div>
                 <div class="form-check form-check-inline">
@@ -98,7 +99,7 @@
                 <div class="invalid-feedback" id="music-feedback" style="display: none;">Please select a music genre.</div>
             </div>
             <div class="col-md-12">
-                <input type="checkbox" id="terms" class="form-check-input" required>
+                <input type="checkbox" name="terms" id="terms" class="form-check-input" required>
                 <label for="terms">I consent to the processing and storage of my personal data.</label>
                 <div class="invalid-feedback" id="terms-feedback" style="display: none;">You must consent to continue.</div>
             </div>
@@ -127,12 +128,11 @@
             const termsFeedback = document.getElementById('terms-feedback');
 
             form.addEventListener('submit', (event) => {
-                event.preventDefault();
-                event.stopPropagation();
-                
                 // Check gender validation
                 const genderSelected = Array.from(genderInputs).some(input => input.checked);
                 if (!genderSelected) {
+                    event.preventDefault();
+                    event.stopPropagation();
                     genderFeedback.style.display = 'block';
                 } else {
                     genderFeedback.style.display = 'none';
@@ -141,6 +141,8 @@
                 // Check music validation
                 const musicSelected = Array.from(musicInputs).some(input => input.checked);
                 if (!musicSelected) {
+                    event.preventDefault();
+                    event.stopPropagation();
                     musicFeedback.style.display = 'block';
                 } else {
                     musicFeedback.style.display = 'none';
@@ -148,9 +150,16 @@
                 
                 // Check terms validation
                 if (!termsInput.checked) {
+                    event.preventDefault();
+                    event.stopPropagation();
                     termsFeedback.style.display = 'block';
                 } else {
                     termsFeedback.style.display = 'none';
+                }
+                
+                if (!form.checkValidity() || !genderSelected || !musicSelected || !termsInput.checked) {
+                    event.preventDefault();
+                    event.stopPropagation();
                 }
                 
                 form.classList.add('was-validated');
