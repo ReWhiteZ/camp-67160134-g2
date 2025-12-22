@@ -10,10 +10,13 @@ class MyController extends Controller
     function __construct(){
         //middleware can be applied here
     }
+    // get method
     function index(){
-        echo $_GET['num'];
+        //echo $_GET['num'];
         return $this->myfunction(); // non-case-sensitive
     }
+
+    // post method
     function process(Request $request){
         //echo $request->input('num');
         $data['mynum'] = $request->input('num');
