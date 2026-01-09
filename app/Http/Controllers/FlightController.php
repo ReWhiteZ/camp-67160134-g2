@@ -12,7 +12,7 @@ class FlightController extends Controller
         $flight = new Flight;
         $flight->name = "Flight A";
         $flight->airline = "Airline X";
-        $flight->number_of_plans = 150;
+        $flight->number_of_planes = 150;
         $flight->price_per_ticket = 299.99;
         $flight->save();
     }
@@ -39,9 +39,16 @@ class FlightController extends Controller
         $flight = Flight::find($id);
         $flight->name = $request->input('name');
         $flight->airline = $request->input('airline');
-        $flight->number_of_plans = $request->input('number_of_plans');
+        $flight->number_of_planes = $request->input('number_of_planes');
         $flight->price_per_ticket = $request->input('price_per_ticket');
         $flight->save();
+
+        return redirect('/flights');
+    }
+
+    function delete_action($id){
+        $flight = Flight::find($id);
+        $flight->delete();
 
         return redirect('/flights');
     }
@@ -53,12 +60,12 @@ class FlightController extends Controller
 
     function store(Request $request){
         $flight = new Flight;
-        $flight->name = "Flight A";
-        $flight->airline = "Airline X";
-        $flight->number_of_plans = 150;
-        $flight->price_per_ticket = 299.99;
+        $flight->name = $request->input('name');
+        $flight->airline = $request->input('airline');
+        $flight->number_of_planes = $request->input('number_of_planes');
+        $flight->price_per_ticket = $request->input('price_per_ticket');
         $flight->save();
 
-        return redirect('/flight');
+        return redirect('/flights');
     }
 }
